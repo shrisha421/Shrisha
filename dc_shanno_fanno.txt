@@ -1,0 +1,54 @@
+clc;
+clear all;
+close all;
+m=input('Enter the no of message ensembles:');
+z=[];
+h=0; l=0;
+display('Enter probabilities in descending order');
+for i=l:m
+fprintf('Ensemble %d\n',i);
+p(i)=input('');
+end
+
+a(1)=0;
+for j=2:m;
+a(j)=a(j-1)+p(j-1);
+end
+fprintf('\n Alpha Matrix');
+display(a);
+
+for i=l:m
+n(i)=ceil(-1*(log2(p(i))));
+end
+fprintf('\n Code Length Matrix');
+display(n);
+
+for i=l:m
+int=a(i);
+for j=l:n(i)
+frac=int*2;
+	c=floor(frac);
+frac=frac-c;
+	z=[z c];
+int=frac;
+end
+fprintf('Codeword %d',i);
+display(z);
+z=[];
+end
+
+fprintf('Avg. Code Length');
+for i=l:m
+	x=p(i)*n(i);
+	l=l+x;
+	x=p(i)*log2(1/p(i));
+	h=h+x;
+end
+display(1);
+fprintf('Entropy');
+display(h);
+
+fprintf('Efficiency');
+display(100*h/l);
+fprintf('Redundancy');
+display(100-(100*h/l));

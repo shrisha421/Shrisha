@@ -1,0 +1,13 @@
+y = normrnd(0,1,1,100000);
+Gy=psd(y);
+Ry=abs(ifft(Gy,256));
+Ry=[Ry(130:256)' Ry(1:129)'];
+t=-127:1:128;
+subplot(121);
+plot(Gy);
+xlabel('frequency samples');
+title('PSD');
+subplot(122);
+plot(t, Ry);
+xlabel('time shift');
+title('Autocorrelation');
